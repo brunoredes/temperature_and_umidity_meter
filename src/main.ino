@@ -7,7 +7,8 @@
 
 #include <DHT.h>
 #include <Adafruit_Sensor.h>
-#include <ESP8266WiFi.h>
+// #include <ESP8266WiFi.h>
+// #include <dotenv.hpp>
 
 /**
  * @def DHTTYPE
@@ -28,30 +29,32 @@
 DHT dht(DHTPIN, DHTTYPE);
 
 /**
- * @var ssid
- * @brief SSID of the WiFi network to connect to
- */
-const char *ssid = "your_SSID";
-
-/**
- * @var password
- * @brief Password of the WiFi network to connect to
- */
-const char *password = "your_PASSWORD";
-
-/**
  * @brief Setup function, runs once on startup
  */
 void setup()
 {
-    Serial.begin(9600);
-    WiFi.begin(ssid, password);
+    // dotenv::dotenv();
 
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        delay(1000);
-        Serial.println("Connecting to WiFi...");
-    }
+    // /**
+    //  * @var ssid
+    //  * @brief SSID of the WiFi network to connect to
+    //  */
+    // const std::char *ssid = std::getenv("WIFI_SSID");
+
+    // /**
+    //  * @var password
+    //  * @brief Password of the WiFi network to connect to
+    //  */
+    // const std::char *password = std::getenv("PASSWORD");
+
+    Serial.begin(9600);
+    // WiFi.begin(ssid, password);
+
+    // while (WiFi.status() != WL_CONNECTED)
+    // {
+    //     delay(1000);
+    //     Serial.println("Connecting to WiFi...");
+    // }
 
     dht.begin();
     Serial.println("Connected to WiFi");
@@ -89,12 +92,12 @@ bool readDHT(float &humidity, float &temperature)
      * @var humidity
      * @brief Humidity reading from the DHT sensor
      */
-    float humidity = dht.readHumidity();
+    humidity = dht.readHumidity();
     /**
      * @var temperature
      * @brief Temperature reading from the DHT sensor
      */
-    float temperature = dht.readTemperature();
+    temperature = dht.readTemperature();
     if (isnan(temperature) || isnan(humidity))
     {
         Serial.println("Failed to read from DHT");

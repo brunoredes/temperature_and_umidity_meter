@@ -7,8 +7,8 @@
 
 #include <DHT.h>
 #include <Adafruit_Sensor.h>
-// #include <ESP8266WiFi.h>
-// #include <dotenv.hpp>
+#include <ESP8266WiFi.h>
+#include <dotenv.hpp>
 
 /**
  * @def DHTTYPE
@@ -33,28 +33,28 @@ DHT dht(DHTPIN, DHTTYPE);
  */
 void setup()
 {
-    // dotenv::dotenv();
+    dotenv::dotenv();
 
-    // /**
-    //  * @var ssid
-    //  * @brief SSID of the WiFi network to connect to
-    //  */
-    // const std::char *ssid = std::getenv("WIFI_SSID");
+    /**
+     * @var ssid
+     * @brief SSID of the WiFi network to connect to
+     */
+    const std::char *ssid = std::getenv("WIFI_SSID");
 
-    // /**
-    //  * @var password
-    //  * @brief Password of the WiFi network to connect to
-    //  */
-    // const std::char *password = std::getenv("PASSWORD");
+    /**
+     * @var password
+     * @brief Password of the WiFi network to connect to
+     */
+    const std::char *password = std::getenv("PASSWORD");
 
     Serial.begin(9600);
-    // WiFi.begin(ssid, password);
+    WiFi.begin(ssid, password);
 
-    // while (WiFi.status() != WL_CONNECTED)
-    // {
-    //     delay(1000);
-    //     Serial.println("Connecting to WiFi...");
-    // }
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        delay(1000);
+        Serial.println("Connecting to WiFi...");
+    }
 
     dht.begin();
     Serial.println("Connected to WiFi");
@@ -81,9 +81,9 @@ void loop()
  * @def DELAY_TIME
  * @brief Time to wait between readings
  */
-#define DELAY_TIME 1800000
+#define THIRTY_MINUTES_IN_MILLISSECONDS_DELAY_TIME 1800000
 
-    delay(DELAY_TIME);
+    delay(THIRTY_MINUTES_IN_MILLISSECONDS_DELAY_TIME);
 }
 
 bool readDHT(float &humidity, float &temperature)
